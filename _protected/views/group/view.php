@@ -70,7 +70,12 @@ $("#update-group-button").not(".btn-loading").on("click", function(){
 		},
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-    		'styled_name',
+    		['attribute'=>'styled_name',
+			 'contentOptions'=>function($model, $key, $index, $column){
+				 if($model->pastUsername['changed']) return ['title'=>'Past Username: '.$model->pastUsername['old_name']];
+				 else return [];
+			 }
+			],
 			['attribute'=>'regionDesc', 'visible'=>$show_region],
 			'attribute'=>'fullrank',
 			'level',

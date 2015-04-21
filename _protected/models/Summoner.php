@@ -101,4 +101,15 @@ class Summoner extends \yii\db\ActiveRecord
     {
         return $this->hasOne(RegionIndex::className(), ['id' => 'region']);
     }
+	
+	public function getPastUsername(){
+		//get usernames up to 1 month prior
+		$past_username = PastUsernames::find()
+			->where(['and', 'region=:region', 'lolid=:lolid', 'timestamp >= DATE_SUB(NOW(), INTERVAL 1 MONTH)'])
+			->params([':region'=>$this->region, ':lolid'=>$this->lolid])
+			->one();
+		if($past_username){
+			return ['changed'=>true, 'old_name'=>$past_username->past_username];
+		}else return ['changed'=>false, 'old_name'=>''];
+	}
 }
