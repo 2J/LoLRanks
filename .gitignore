@@ -30,5 +30,5 @@ phpunit.phar
 /phpunit.xml
 
 # Assets/runtime
-/_protected/runtime
-/assets
+_protected/runtime
+assets
