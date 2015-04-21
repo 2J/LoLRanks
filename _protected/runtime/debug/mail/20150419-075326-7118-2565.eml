@@ -1,0 +1,49 @@
+Message-ID: <168e8f3b85816df8fc79c04ceee8f1af@localhost>
+Date: Sun, 19 Apr 2015 07:53:22 +0200
+Subject: Account activation for My Company
+From: My Company robot <support@j2.io>
+To: jjeonghm+1@gmail.com
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="_=_swift_v4_1429422802_0ad3a051762fc71025bb037ef49f2539_=_"
+
+
+--_=_swift_v4_1429422802_0ad3a051762fc71025bb037ef49f2539_=_
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Hello tester1,
+
+Follow this link to activate your account:
+
+Please,=
+ click here to activate your account.
+
+--_=_swift_v4_1429422802_0ad3a051762fc71025bb037ef49f2539_=_
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org=
+/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns=3D"http://www.w3.org/1999/=
+xhtml">
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/ht=
+ml; charset=3DUTF-8" />
+    <title></title>
+    </head>
+<body>
+    =
+   =20
+Hello tester1,
+
+Follow this link to activate your account:
+
+=
+<a href=3D"http://localhost:8080/yii2-template/site/activate-account?token=
+=3DWwwlKTa_xJ1nTVGthDZeFEuXR2wOFOSC_1429422802">Please, click here to activ=
+ate your account.</a>    </body>
+</html>
+
+
+--_=_swift_v4_1429422802_0ad3a051762fc71025bb037ef49f2539_=_--
