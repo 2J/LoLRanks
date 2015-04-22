@@ -15,7 +15,7 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-	<link rel="shortcut icon" href="favicon.ico"> 
+    <link rel="shortcut icon" href="/favicon.ico"> 
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:site_name" content="LoL Ranks" />
