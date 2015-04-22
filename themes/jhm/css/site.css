@@ -300,3 +300,19 @@ div.jumbotron a.btn.btn-lg{
 	margin-bottom:5px;
 }
 
+.inline{
+	display:inline;
+}
+.inline-block{
+	display:inline-block;
+}
+#embed_instructions{
+border-radius: 1px 1px 1px 1px;
+-moz-border-radius: 1px 1px 1px 1px;
+-webkit-border-radius: 1px 1px 1px 1px;
+border: 1px dashed #cdcdcd;
+padding:1px;
+}
+.share-btn > i.fa{
+	width:20px;
+}

@@ -19,9 +19,9 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:site_name" content="LoL Ranks" />
-    <meta property="og:url" content="http://lolranks.j2.io" />
-    <meta property="og:title" content="LoL Ranks" />
-    <meta property="og:description" content="League of Legends ranking system for groups, clans, and friends" />
+    <meta property="og:url" content="<?= $this->og_url? $this->og_url : "http://lolranks.j2.io" ?>" />
+    <meta property="og:title" content="<?= $this->og_title? $this->og_title : ('LoL Ranks'.((count($this->title)>0)? " - ":"").Html::encode($this->title)) ?>" />
+    <meta property="og:description" content="<?= $this->og_description? $this->og_description : "League of Legends ranking system for groups, clans, and friends" ?>" />
     <meta property="og:image" content="http://lolranks.j2.io/images/lolranks.png" />
     <?= Html::csrfMetaTags() ?>
     <title>LoL Ranks<?= ((count($this->title)>0)? " - ":"").Html::encode($this->title) ?></title>
@@ -32,7 +32,7 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => Yii::t('app', Yii::$app->name),
+                'brandLabel' => Yii::t('app', Yii::$app->name) . " <small><small>(Beta)</small></small>",
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-default navbar-fixed-top',
@@ -101,7 +101,6 @@ AppAsset::register($this);
 		</p>
         </div>
     </footer>
-
     <?php $this->endBody() ?>
 </body>
 <script>
@@ -112,7 +111,6 @@ AppAsset::register($this);
 
   ga('create', 'UA-61917183-3', 'auto');
   ga('send', 'pageview');
-
 </script>
 </html>
 <?php $this->endPage() ?>

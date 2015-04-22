@@ -9,6 +9,9 @@ use yii\web\View;
 /* @var $model app\models\Group */
 
 $this->title = $model->name;
+$this->og_title = 'LoL Ranks - '.$model->name;
+$this->og_url = Url::to(['group/view','slug'=>$model->slug],true);
+$this->og_description = $model->description;
 /*if($model->isOwner()){
 	$this->params['breadcrumbs'][] = ['label' => 'Groups', 'url' => ['mygroups']];
 	$this->params['breadcrumbs'][] = $this->title;
@@ -48,6 +51,26 @@ $("#embed_btn").on("click", function(){
 	$("#embed_instructions").show();
 });
 ', View::POS_READY, 'update');
+
+$this->registerJs('
+$(".share-popup").click(function(){
+    var window_size = "";
+    var url = this.href;
+    var domain = url.split("/")[2];
+    switch(domain) {
+        case "www.facebook.com":
+            window_size = "width=585,height=368";
+            break;
+        case "www.twitter.com":
+            window_size = "width=585,height=261";
+            break;
+        default:
+            window_size = "width=585,height=511";
+    }
+    window.open(url, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes," + window_size);
+    return false;
+});
+', View::POS_READY, 'share');
 ?>
 
 <div class="group-view">
@@ -132,8 +155,16 @@ $("#embed_btn").on("click", function(){
 
 <div class="row">
 	<div class="col-md-12 text-right">
-		<div class="btn btn-default btn-xs" id="embed_btn">Embed</div>
-        <div class="" id="embed_instructions" style="display:none;">
+    	<div class="inline">Share: </div>&nbsp;
+        <div class="inline">
+        
+        <a href="http://www.facebook.com/sharer/sharer.php?u=<?= Url::to(['group/view', 'slug'=>$model->slug],true) ?>&t=<?= $model->name ?>" target="_blank" class="share-popup"><div class="inline btn btn-default btn-xs text-center share-btn"><i class="fa fa-facebook"></i></div></a>&nbsp;
+        
+        <a href="http://www.twitter.com/intent/tweet?url=<?= Url::to(['group/view', 'slug'=>$model->slug],true) ?>&via=LoLRanks&text=<?= $model->name ?> - <?= $model->description ?> " target="_blank" class="share-popup"><div class="inline btn btn-default btn-xs text-center share-btn"><i class="fa fa-twitter"></i></div></a>&nbsp;
+        
+        </div>
+		<div class="inline btn btn-default btn-xs" id="embed_btn">Embed</div>
+        <div class="inline-block" id="embed_instructions" style="display:none;">
         	Copy and paste this html code to embed: 
 	        <input id="embed_code" type="text" readonly onClick="this.select();" value="<iframe src=&quot;<?= Url::to(['group/view','slug'=>$model->slug, 'embed'=>true], true) ?>&quot; style=&quot;width:500px;height:400px;border:0;&quot;>Loading Ranking...</iframe>"></input>
         </div>

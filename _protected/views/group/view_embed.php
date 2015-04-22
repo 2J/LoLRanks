@@ -13,9 +13,9 @@ use yii\web\View;
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:site_name" content="LoL Ranks" />
-    <meta property="og:url" content="http://lolranks.j2.io" />
-    <meta property="og:title" content="LoL Ranks" />
-    <meta property="og:description" content="League of Legends ranking system for groups, clans, and friends" />
+    <meta property="og:url" content="Url::to(['group/view','slug'=>$model->slug],true)" />
+    <meta property="og:title" content="LoL Ranks - <?= $model->name ?>" />
+    <meta property="og:description" content="<?= $model->description ?>" />
     <meta property="og:image" content="http://lolranks.j2.io/images/lolranks.png" />
     
     <link href="<?= Yii::$app->homeUrl ?>themes/jhm/css/site.css" rel="stylesheet">
