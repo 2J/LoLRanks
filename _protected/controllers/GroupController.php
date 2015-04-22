@@ -145,7 +145,8 @@ class GroupController extends Controller
 					'styled_name', 
 					'level', 
 					'wins', 
-					'losses'
+					'losses',
+					'total',
 				],
 			],
 			'pagination' => [

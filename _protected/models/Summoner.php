@@ -112,4 +112,8 @@ class Summoner extends \yii\db\ActiveRecord
 			return ['changed'=>true, 'old_name'=>$past_username->past_username];
 		}else return ['changed'=>false, 'old_name'=>''];
 	}
+	
+	public function getTotal(){
+		return $this->wins + $this->losses;
+	}
 }

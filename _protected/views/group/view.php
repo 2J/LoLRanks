@@ -85,6 +85,7 @@ $("#update-group-button").not(".btn-loading").on("click", function(){
 			'level',
 			'wins',
 			'losses',
+			'total',
             ['class' => 'yii\grid\ActionColumn', 
 			 'visible'=>$model->isOwner(),
 		 	 'template'=>'{delete}',
