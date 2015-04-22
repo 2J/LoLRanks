@@ -34,6 +34,7 @@ $("#update-group-button").not(".btn-loading").on("click", function(){
 	if($("#update-group-button").hasClass("btn-loading")) return false;
 	$("#update-group-button").removeClass( "btn-default" ).addClass( "btn-loading" );
     $.ajax({url: "' .Url::to(['update/group', 'group_id'=>$group_id]). '", dataType: "json", success: function(result){
+		$("#update-group-button").prop( "title" , "Updated Now" );
 		$("#update-group-button").removeClass( "btn-loading" ).addClass( "btn-default" );
         alert(result.msg);
 		if(result.success){
@@ -50,7 +51,10 @@ $("#update-group-button").not(".btn-loading").on("click", function(){
     </h1>
     <h3 class="text-center"><?= $model->description ?></h3>
 	<div class="text-center">
-		<div id="update-group-button" class="btn btn-default btn-sm"><i class="fa fa-refresh fa-spin hidden-default"></i> Update Group <i class="fa fa-refresh fa-spin hidden-default"></i></div>
+		<div id="update-group-button" class="btn btn-default btn-sm" title="Updated <?= $updated_ago ?> ago">
+        	<div class="hidden-loading">Update Group</div>
+        	<div class="hidden-default">Updating &nbsp; <i class="fa fa-refresh fa-spin"></i></div>
+        </div>
     </div>
 	<?php if($model->isOwner()){ ?>
 	    <br /><div class="text-center">

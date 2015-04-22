@@ -228,6 +228,11 @@ body, .breadcrumb, .group-view{
 .btn-default .hidden-default{
 	display:none;
 }
+.btn-loading .hidden-loading{
+	display:none;
+}
+
+/*TABLE RANKINGS*/
 div.ranking table tr.Challenger td:nth-child(3){/*challenger*/
 	background-color:#FFFF99;
 }
@@ -251,4 +256,10 @@ div.ranking table tr.Bronze td:nth-child(3){/*Bronze*/
 	background-color:#9D7D5C;
 }
 div.ranking table tr.Unranked td:nth-child(3){/*Unranked*/
+}
+/*TABLE RANKINGS END*/
+
+div.jumbotron a.btn.btn-lg{
+	margin-top:5px;
+	margin-bottom:5px;
 }

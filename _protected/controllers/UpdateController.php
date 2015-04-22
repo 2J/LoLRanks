@@ -36,7 +36,7 @@ class UpdateController extends \yii\web\Controller
 
 
 		foreach($summoners as $key=>$summoner){
-			if((strtotime($timestamp) - strtotime($summoner->last_updated)) < 120){ //update can't happen more than once every 2 min
+			if((strtotime($timestamp) - strtotime($summoner->last_updated)) < 300){ //update can't happen more than once every 5 min
 				unset($summoners[$key]);
 			}
 		}
