@@ -117,7 +117,7 @@ class GroupController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($slug, $sort='rank')
+    public function actionView($slug, $embed=false, $hide='')
     {
         if (($model =Group::find()->where(['slug'=>$slug])->one()) == null) {
             throw new NotFoundHttpException('The requested page does not exist');
@@ -146,7 +146,7 @@ class GroupController extends Controller
 					'level', 
 					'wins', 
 					'losses',
-					'total',
+					'wlratio',
 				],
 			],
 			'pagination' => [
@@ -167,6 +167,7 @@ class GroupController extends Controller
 			'show_region'=>$show_region,
 			'update_group'=>$update_group,
 			'updated_ago'=>Yii::$app->GenericFunctions->TimeSince($time_since),
+			'embed'=>$embed,
         ]);
     }
 	

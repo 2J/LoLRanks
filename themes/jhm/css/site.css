@@ -257,9 +257,47 @@ div.ranking table tr.Bronze td:nth-child(3){/*Bronze*/
 }
 div.ranking table tr.Unranked td:nth-child(3){/*Unranked*/
 }
+
+div.ranking table tr td.wl-70{
+	background-color:#216300;
+	color:white;
+}
+div.ranking table tr td.wl-60{
+	background-color:#349e00;
+	/*color:;*/
+}
+div.ranking table tr td.wl-55{
+	background-color:#6aff18;
+	/*color:;*/
+}
+div.ranking table tr td.wl-50{
+	background-color:#adff80;
+	/*color:;*/
+}
+div.ranking table tr td.wl-45{
+	background-color:#eec1c1;
+	/*color:;*/
+}
+div.ranking table tr td.wl-40{
+	background-color:#d73a3a;
+	color:white;
+}
+div.ranking table tr td.wl-30{
+	background-color:#a61f1f;
+	color:white;
+}
+div.ranking table tr td.wl-0{
+	background-color:#a61f1f;
+	color:white;
+}
+div.ranking table tr td.wl-UR{
+	background-color:#FFFFFF;
+	/*color:;*/
+}
 /*TABLE RANKINGS END*/
 
 div.jumbotron a.btn.btn-lg{
 	margin-top:5px;
 	margin-bottom:5px;
 }
+

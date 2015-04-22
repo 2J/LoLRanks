@@ -83,9 +83,31 @@ $("#update-group-button").not(".btn-loading").on("click", function(){
 			['attribute'=>'regionDesc', 'visible'=>$show_region],
 			'attribute'=>'fullrank',
 			'level',
-			'wins',
-			'losses',
-			'total',
+			['attribute'=>'wlratio',
+			 'content'=>function ($model, $key, $index, $column){
+				 return $model->getWlratio(false);
+			 },
+			 'contentOptions'=>function($model, $key, $index, $column){
+				 //get win/loss ratio
+				 $wlratio=0;
+				 if($model->total==0) $wlratio = '';
+				 else $wlratio = intval(100 * $model->wins / ($model->wins + $model->losses));
+				 
+				 //get css accordingly
+				 $wlcss = '';
+				 if($wlratio=='') $wlcss="UR";
+				 elseif($wlratio>=70) $wlcss="70";
+				 elseif($wlratio>=60) $wlcss="60";
+				 elseif($wlratio>=55) $wlcss="55";
+				 elseif($wlratio>=50) $wlcss="50";
+				 elseif($wlratio>=45) $wlcss="45";
+				 elseif($wlratio>=40) $wlcss="40";
+				 elseif($wlratio>=30) $wlcss="30";
+				 elseif($wlratio>=0) $wlcss="0";
+				 
+				 return ['class'=>'wl-'.$wlcss];
+			 },
+			],
             ['class' => 'yii\grid\ActionColumn', 
 			 'visible'=>$model->isOwner(),
 		 	 'template'=>'{delete}',

@@ -68,6 +68,7 @@ class Summoner extends \yii\db\ActiveRecord
             'need_update' => 'Need Update',
 			'fullrank' => 'Rank',
 			'regionDesc' => 'Region',
+			'wlratio' => 'W / L (%)',
         ];
     }
 	
@@ -115,5 +116,15 @@ class Summoner extends \yii\db\ActiveRecord
 	
 	public function getTotal(){
 		return $this->wins + $this->losses;
+	}
+	
+	public function getWlratio($sort=true){
+		if($this->total == 0) {
+			if($sort) return -1;
+			else return "N/A";
+		}
+		if($sort) return (100 * $this->wins / ($this->wins + $this->losses));
+		$wlratio = (intval(1000 * $this->wins / ($this->wins + $this->losses)))/10;
+		return $this->wins . " / " . $this->losses . " (". $wlratio ."%)";
 	}
 }
