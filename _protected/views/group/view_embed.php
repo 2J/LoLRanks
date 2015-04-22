@@ -90,6 +90,7 @@ $("#update-group-button").not(".btn-loading").on("click", function(){
 			],
 			['attribute'=>'regionDesc', 'visible'=>$show_region],
 			'attribute'=>'fullrank',
+			['attribute'=>'level', 'visible'=>$model->has_low],
 			['attribute'=>'wlratio',
 			 'content'=>function ($model, $key, $index, $column){
 				 return $model->getWlratio(false);

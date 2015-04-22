@@ -57,7 +57,7 @@ $("#embed_btn").on("click", function(){
     <h3 class="text-center"><?= $model->description ?></h3>
 	<div class="text-center">
 		<div id="update-group-button" class="btn btn-default btn-sm" title="Updated <?= $updated_ago ?> ago">
-        	<div class="hidden-loading">Update Group <?= $model->has_low ?></div>
+        	<div class="hidden-loading">Update Group</div>
         	<div class="hidden-default">Updating &nbsp; <i class="fa fa-refresh fa-spin"></i></div>
         </div>
     </div>
