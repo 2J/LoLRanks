@@ -34,9 +34,10 @@ class UpdateController extends \yii\web\Controller
 		$timestamp = \Yii::$app->db->createCommand('SELECT CURRENT_TIMESTAMP as timestamp')->queryOne()['timestamp'];
 		$summoners = $model->summoners;
 
-
+		$has_low = false;
 		foreach($summoners as $key=>$summoner){
-			if((strtotime($timestamp) - strtotime($summoner->last_updated)) < 300){ //update can't happen more than once every 5 min
+			if($summoner->level < 30) $has_low = true;
+			if((strtotime($timestamp) - strtotime($summoner->last_updated)) < 0){ //update can't happen more than once every 5 min
 				unset($summoners[$key]);
 			}
 		}
@@ -123,6 +124,7 @@ class UpdateController extends \yii\web\Controller
 			}
 		}
 		$model->last_visit = new Expression('NOW()');
+		$model->has_low = intval($has_low);
 		$model->save();
 		return ['msg'=>'Group has successfully updated.', 'success'=>true];
     }

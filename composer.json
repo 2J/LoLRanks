@@ -16,7 +16,8 @@
         "yiisoft/yii2-swiftmailer": "*",
         "nenad/yii2-password-strength": "*",
         "mihaildev/yii2-ckeditor": "*",
-        "linslin/yii2-curl": "*"
+        "linslin/yii2-curl": "*",
+        "himiklab/yii2-sitemap-module": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Url;
+use himiklab\sitemap\behaviors\SitemapBehavior;
 
 /**
  * This is the model class for table "group".
@@ -14,6 +16,7 @@ use Yii;
  * @property string $slug
  * @property string $last_visit
  * @property integer $private
+ * @property integer $has_low 
  *
  * @property User $user
  * @property GroupAssignment[] $groupAssignments
@@ -35,7 +38,7 @@ class Group extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['user_id', 'private'], 'integer'],
+            [['user_id', 'private', 'has_low'], 'integer'],
             [['last_visit'], 'safe'],
             [['name'], 'string', 'max' => 100],
             [['description'], 'string', 'max' => 200],
@@ -58,6 +61,7 @@ class Group extends \yii\db\ActiveRecord
             'slug' => 'URL',
             'last_visit' => 'Last Visit',
             'private' => 'Private(NOTE: DOES NOT WORK RIGHT NOW)',
+			'has_low' => 'Has Low',
         ];
     }
 
@@ -105,5 +109,28 @@ class Group extends \yii\db\ActiveRecord
 		if((Yii::$app->user->id == $this->user_id) || Yii::$app->user->can('theCreator')){
 			return true;
 		}else return false;
+	}
+ 
+	public function behaviors()
+	{
+		return [
+			'sitemap' => [
+				'class' => SitemapBehavior::className(),
+				'scope' => function ($model) {
+					/** @var \yii\db\ActiveQuery $model */
+					$model->select(['slug', 'last_visit']);
+					$model->andWhere(['private' => 0]);
+				},
+				'dataClosure' => function ($model) {
+					/** @var self $model */
+					return [
+						'loc' => Url::to('groups/'.$model->slug, true),
+						'lastmod' => strtotime($model->last_visit),
+						'changefreq' => SitemapBehavior::CHANGEFREQ_DAILY,
+						'priority' => 0.7
+					];
+				}
+			],
+		];
 	}
 }
