@@ -258,20 +258,19 @@ div.ranking table tr.Bronze td:nth-child(3){/*Bronze*/
 div.ranking table tr.Unranked td:nth-child(3){/*Unranked*/
 }
 
-div.ranking table tr td.wl-70{
-	background-color:#216300;
-	color:white;
+div.ranking table tr td.wl-65{
+	background-color:#FFFF99;
 }
 div.ranking table tr td.wl-60{
-	background-color:#349e00;
+	background-color:#B8E6E6;
 	/*color:;*/
 }
 div.ranking table tr td.wl-55{
-	background-color:#6aff18;
+	background-color:#99FF99;
 	/*color:;*/
 }
 div.ranking table tr td.wl-50{
-	background-color:#adff80;
+	background-color:#c7e3c2;
 	/*color:;*/
 }
 div.ranking table tr td.wl-45{

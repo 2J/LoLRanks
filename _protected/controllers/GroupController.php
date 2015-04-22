@@ -161,14 +161,23 @@ class GroupController extends Controller
 			->one()['regcount'];
 		$show_region = $num_regions > 1;
 		
-        return $this->render('view', [
-            'model' => $model,
-			'dataProvider'=>$dataProvider,
-			'show_region'=>$show_region,
-			'update_group'=>$update_group,
-			'updated_ago'=>Yii::$app->GenericFunctions->TimeSince($time_since),
-			'embed'=>$embed,
-        ]);
+		if($embed){
+			return $this->renderPartial('view_embed', [
+				'model' => $model,
+				'dataProvider'=>$dataProvider,
+				'show_region'=>$show_region,
+				'update_group'=>$update_group,
+				'updated_ago'=>Yii::$app->GenericFunctions->TimeSince($time_since),
+			], true, true);
+		}else{		
+			return $this->render('view', [
+				'model' => $model,
+				'dataProvider'=>$dataProvider,
+				'show_region'=>$show_region,
+				'update_group'=>$update_group,
+				'updated_ago'=>Yii::$app->GenericFunctions->TimeSince($time_since),
+			]);
+		}
     }
 	
 	public function actionDeletesummoner($group_id, $region, $lolid){

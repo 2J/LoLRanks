@@ -1,9 +1,32 @@
 <?php
-
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
 use yii\web\View;
+
+?>
+
+<!DOCTYPE html>
+<html lang="<?= Yii::$app->language ?>">
+<head>
+	<link rel="shortcut icon" href="favicon.ico"> 
+    <meta charset="<?= Yii::$app->charset ?>"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:site_name" content="LoL Ranks" />
+    <meta property="og:url" content="http://lolranks.j2.io" />
+    <meta property="og:title" content="LoL Ranks" />
+    <meta property="og:description" content="League of Legends ranking system for groups, clans, and friends" />
+    <meta property="og:image" content="http://lolranks.j2.io/images/lolranks.png" />
+    
+    <link href="<?= Yii::$app->homeUrl ?>themes/jhm/css/site.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"></head>
+
+    <title>LoL Ranks<?= ((count($this->title)>0)? " - ":"").Html::encode($this->title) ?></title>
+    <?php $this->head() ?>
+</head>
+<body>
+
+<?php
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Group */
@@ -21,10 +44,6 @@ if($update_group){
 	$(this).removeClass( "btn-default" ).addClass( "btn-loading" );
 		$.ajax({url: "' .Url::to(['update/group', 'group_id'=>$group_id]). '", dataType: "json", success: function(result){
 			$(this).removeClass( "btn-loading" ).addClass( "btn-default" );
-			if(result.success){
-				alert(result.msg)
-				location.reload();
-			}
 		}});
 	', View::POS_READY, 'updateNoclick');
 };
@@ -42,32 +61,16 @@ $("#update-group-button").not(".btn-loading").on("click", function(){
 		}
     }});
 })
-
-$("#embed_btn").on("click", function(){
-	$(this).hide();
-	$("#embed_instructions").show();
-});
 ', View::POS_READY, 'update');
 ?>
 
 <div class="group-view">
     <h1 class="text-center">
+	    <a href="<?= Url::to(['group/view','slug'=>$model->slug]) ?>", target=_blank>
 		<?= $model->name ?>
+    	</a>
     </h1>
     <h3 class="text-center"><?= $model->description ?></h3>
-	<div class="text-center">
-		<div id="update-group-button" class="btn btn-default btn-sm" title="Updated <?= $updated_ago ?> ago">
-        	<div class="hidden-loading">Update Group</div>
-        	<div class="hidden-default">Updating &nbsp; <i class="fa fa-refresh fa-spin"></i></div>
-        </div>
-    </div>
-	<?php if($model->isOwner()){ ?>
-	    <br /><div class="text-center">
-			<?= Html::a('<i class="fa fa-pencil"></i>', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('Add Summoners', ['addmember', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-        </div>
-        <br />
-    <?php } ?>
 
 	<?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -87,7 +90,6 @@ $("#embed_btn").on("click", function(){
 			],
 			['attribute'=>'regionDesc', 'visible'=>$show_region],
 			'attribute'=>'fullrank',
-			'level',
 			['attribute'=>'wlratio',
 			 'content'=>function ($model, $key, $index, $column){
 				 return $model->getWlratio(false);
@@ -113,29 +115,8 @@ $("#embed_btn").on("click", function(){
 				 return ['class'=>'wl-'.$wlcss];
 			 },
 			],
-            ['class' => 'yii\grid\ActionColumn', 
-			 'visible'=>$model->isOwner(),
-		 	 'template'=>'{delete}',
-			 'buttons'=>[
-			 	'delete'=>function($url, $model, $key){
-					global $group_id;
-					return Html::a('<span class="glyphicon glyphicon-trash"></span>', 
-						Url::to(['group/deletesummoner','group_id' => $group_id, 'region'=>$model->region, 'lolid'=>$model->lolid]),
-						['data-method'=>'post', 'data-confirm'=>'Are you sure you want to delete this summoner?', 'data-pjax'=>'0']);
-				}
-			 ]
-			],
         ],
     ]); ?>
 
 </div>
-
-<div class="row">
-	<div class="col-md-12 text-right">
-		<div class="btn btn-default btn-xs" id="embed_btn">Embed</div>
-        <div class="" id="embed_instructions" style="display:none;">
-        	Copy and paste this html code to embed: 
-	        <input id="embed_code" type="text" readonly onClick="this.select();" value="<iframe src=&quot;<?= Url::to(['group/view','slug'=>$model->slug, 'embed'=>true], true) ?>&quot; style=&quot;width:500px;height:400px;border:0;&quot;>Loading Ranking...</iframe>"></input>
-        </div>
-    </div>
-</div>
+</body>
