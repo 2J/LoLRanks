@@ -66,7 +66,7 @@ $("#update-group-button").not(".btn-loading").on("click", function(){
 
 <div class="group-view">
     <h1 class="text-center">
-	    <a href="<?= Url::to(['group/view','slug'=>$model->slug]) ?>", target=_blank>
+	    <a href="<?= Url::to(['group/view','slug'=>$model->slug]) ?>" target=_blank>
 		<?= $model->name ?>
     	</a>
     </h1>

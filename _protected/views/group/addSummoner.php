@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = 'Add Members';
 
     <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($addSummoner, 'region')->dropDownList(ArrayHelper::map(RegionIndex::find()->all(), 'code', 'description')) ?>
+        <?= $form->field($addSummoner, 'region')->dropDownList(ArrayHelper::map(RegionIndex::find()->orderBy('description')->all(), 'code', 'description')) ?>
         <?= $form->field($addSummoner, 'usernames')->textarea(['placeholder'=>'Add up to 40 names at once, separated by commas'])->label('Summoner Names') ?>
     
         <div class="form-group">

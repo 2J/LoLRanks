@@ -84,6 +84,7 @@ class GroupController extends Controller
 		if(!$group->isOwner())throw new \yii\web\HttpException(403, 'You are not allowed to perform this action.', 405);
 		
 		$addSummoner = new AddSummoner();
+		$addSummoner->region = 'na';
 		
 		if (Yii::$app->request->isAjax && $addSummoner->load($_POST))
 		{

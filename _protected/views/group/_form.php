@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => 200]) ?>
 
-    <?= $form->field($model, 'slug')->textInput(['maxlength' => 30, 'placeholder' => 'Group URL for sharing (leave blank for default)' ]) ?>
+    <?= $form->field($model, 'slug')->textInput(['maxlength' => 30, 'placeholder' => 'http://lolranks.j2.io/groups/[URL] - leave blank for default' ]) ?>
 
     <?= $form->field($model, 'private')->checkBox() ?>
 

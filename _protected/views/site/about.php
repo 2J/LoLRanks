@@ -38,6 +38,7 @@ $this->title = Yii::t('app', 'About');
 <li>Export ranking as markdown (for use in websites such as Reddit)</li>
 <li>Option to track queues other than solo queue</li>
 <li>Add editors that can also edit your ranking</li>
+<li>Private rankings</li>
 </ul>
 <h1 id="instructions">Instructions</h1>
 <ol>

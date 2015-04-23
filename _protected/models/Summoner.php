@@ -106,8 +106,9 @@ class Summoner extends \yii\db\ActiveRecord
 	public function getPastUsername(){
 		//get usernames up to 1 month prior
 		$past_username = PastUsernames::find()
-			->where(['and', 'region=:region', 'lolid=:lolid', 'timestamp >= DATE_SUB(NOW(), INTERVAL 1 MONTH)'])
+			->where(['and', 'region=:region', 'lolid=:lolid', 'timestamp >= DATE_SUB(NOW(), INTERVAL 2 WEEK)'])
 			->params([':region'=>$this->region, ':lolid'=>$this->lolid])
+			->orderBy('timestamp DESC')
 			->one();
 		if($past_username){
 			return ['changed'=>true, 'old_name'=>$past_username->past_username];

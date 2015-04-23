@@ -316,3 +316,27 @@ padding:1px;
 .share-btn > i.fa{
 	width:20px;
 }
+.btn-facebook:hover{
+	background-color:#3b5998;
+	border-color:#3b5998;
+}
+.btn-twitter:hover{
+	background-color:#5ea9dd;
+	border-color:#5ea9dd;
+}
+
+div.recently-changed{
+	font-size:.6em;
+	border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border: 1px solid #cdcdcd;
+	padding:1px;
+	background-color:#cdcdcd;
+	color: #6E6E6E;
+}
+div.updated-ago{
+	font-size:.8em;
+	padding:1px;
+	color: #ababab;
+}

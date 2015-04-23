@@ -75,10 +75,13 @@ $(".share-popup").click(function(){
 
 <div class="group-view">
     <h1 class="text-center">
-		<?= $model->name ?>
+	    <a href="<?= Url::to(['group/view','slug'=>$model->slug]) ?>">
+			<?= $model->name ?>
+    	</a>
     </h1>
     <h3 class="text-center"><?= $model->description ?></h3>
 	<div class="text-center">
+	    <div class="inline updated-ago">&nbsp;Updated <?= $updated_ago ?> ago&nbsp;</div><br />
 		<div id="update-group-button" class="btn btn-default btn-sm" title="Updated <?= $updated_ago ?> ago">
         	<div class="hidden-loading">Update Group</div>
         	<div class="hidden-default">Updating &nbsp; <i class="fa fa-refresh fa-spin"></i></div>
@@ -103,9 +106,10 @@ $(".share-popup").click(function(){
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
     		['attribute'=>'styled_name',
-			 'contentOptions'=>function($model, $key, $index, $column){
-				 if($model->pastUsername['changed']) return ['title'=>'Past Username: '.$model->pastUsername['old_name']];
-				 else return [];
+			 'content'=>function ($model, $key, $index, $column){
+				 $data = $model->styled_name;
+				 if($model->pastUsername['changed']) $data.= ' &nbsp;&nbsp;<div class="inline recently-changed">Past: '.$model->pastUsername['old_name'].'</div>' ;
+				 return $data;
 			 }
 			],
 			['attribute'=>'regionDesc', 'visible'=>$show_region],
@@ -158,9 +162,9 @@ $(".share-popup").click(function(){
     	<div class="inline">Share: </div>&nbsp;
         <div class="inline">
         
-        <a href="http://www.facebook.com/sharer/sharer.php?u=<?= Url::to(['group/view', 'slug'=>$model->slug],true) ?>&t=<?= $model->name ?>" target="_blank" class="share-popup"><div class="inline btn btn-default btn-xs text-center share-btn"><i class="fa fa-facebook"></i></div></a>&nbsp;
+        <a href="http://www.facebook.com/sharer/sharer.php?u=<?= Url::to(['group/view', 'slug'=>$model->slug],true) ?>&t=<?= $model->name ?>" target="_blank" class="share-popup"><div class="inline btn btn-default btn-xs text-center share-btn btn-facebook"><i class="fa fa-facebook"></i></div></a>&nbsp;
         
-        <a href="http://www.twitter.com/intent/tweet?url=<?= Url::to(['group/view', 'slug'=>$model->slug],true) ?>&via=LoLRanks&text=<?= $model->name ?> - <?= $model->description ?> " target="_blank" class="share-popup"><div class="inline btn btn-default btn-xs text-center share-btn"><i class="fa fa-twitter"></i></div></a>&nbsp;
+        <a href="http://www.twitter.com/intent/tweet?url=<?= Url::to(['group/view', 'slug'=>$model->slug],true) ?>&via=LoLRanks&text=<?= $model->name ?> - <?= $model->description ?> " target="_blank" class="share-popup"><div class="inline btn btn-default btn-xs text-center share-btn btn-twitter"><i class="fa fa-twitter"></i></div></a>&nbsp;
         
         </div>
 		<div class="inline btn btn-default btn-xs" id="embed_btn">Embed</div>

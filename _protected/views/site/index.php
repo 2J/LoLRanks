@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Url;
 /* @var $this yii\web\View */
-$this->title = Yii::t('app', Yii::$app->name);
+//$this->title = Yii::t('app', Yii::$app->name);
 ?>
 <div class="site-index">
 
