@@ -43,7 +43,7 @@ class Group extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 100],
             [['description'], 'string', 'max' => 200],
             [['slug'], 'string', 'max' => 30],
-			['slug', 'match', 'pattern' => "/^[A-Za-z0-9 -_.]*$/"],
+			['slug', 'match', 'pattern' => '/^[A-Za-z0-9_-]+$/u', 'message'=>'Url can only contain alphanumeric characters, dashes, and hyphens'],
             [['slug'], 'unique'],
         ];
     }

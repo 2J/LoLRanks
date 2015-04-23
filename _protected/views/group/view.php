@@ -70,7 +70,7 @@ $(".share-popup").click(function(){
 
 <div class="group-view">
     <h1 class="text-center">
-	    <a href="<?= Url::to(['group/view','slug'=>$model->slug]) ?>">
+	    <a href="<?= Url::to(['group/view','slug'=>$model->slug], true) ?>">
 			<?= $model->name ?>
     	</a>
     </h1>
@@ -158,16 +158,16 @@ $(".share-popup").click(function(){
     	<div class="inline">Share: </div>&nbsp;
         <div class="inline">
         
-        <a href="http://www.facebook.com/sharer/sharer.php?u=<?= Url::to(['group/view', 'slug'=>$model->slug],true) ?>&t=<?= $model->name ?>" target="_blank" class="share-popup"><div class="inline btn btn-default btn-xs text-center share-btn btn-facebook"><i class="fa fa-facebook"></i></div></a>&nbsp;
+        <a href="http://www.facebook.com/sharer/sharer.php?u=<?= Url::to(['group/view', 'slug'=>$model->slug],true) ?>&t=<?= $model->name ?>" target="_blank" class="share-popup"><div class="inline btn btn-default btn-xs text-center share-btn btn-facebook"><i class="fa fa-facebook"></i></div></a>
         
-        <a href="http://www.twitter.com/intent/tweet?url=<?= Url::to(['group/view', 'slug'=>$model->slug],true) ?>&via=LoLRanks&text=<?= $model->name ?> - <?= $model->description ?> " target="_blank" class="share-popup"><div class="inline btn btn-default btn-xs text-center share-btn btn-twitter"><i class="fa fa-twitter"></i></div></a>&nbsp;
+        <a href="http://www.twitter.com/intent/tweet?url=<?= Url::to(['group/view', 'slug'=>$model->slug],true) ?>&via=LoLRanks&text=<?= $model->name ?> - <?= $model->description ?> " target="_blank" class="share-popup"><div class="inline btn btn-default btn-xs text-center share-btn btn-twitter"><i class="fa fa-twitter"></i></div></a>
         
         </div>
         
 		<div class="inline btn btn-default btn-xs" id="embed_btn" onclick="$(this).hide();$('#share_permalink').show();">Permalink</div>
         <div class="inline-block" id="share_permalink" style="display:none;">
         	Permalink: 
-	        <input id="embed_code" type="text" readonly onClick="this.select();" value="<?= Url::to(['group/view','slug'=>$model->slug]) ?>"></input>
+	        <input id="embed_code" type="text" readonly onClick="this.select();" value="<?= Url::to(['group/view','slug'=>$model->slug], true) ?>"></input>
         </div>
         
 		<div class="inline btn btn-default btn-xs" id="embed_btn" onclick="$(this).hide();$('#embed_instructions').show();">Embed</div>

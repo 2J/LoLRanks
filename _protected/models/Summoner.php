@@ -109,9 +109,11 @@ class Summoner extends \yii\db\ActiveRecord
 			->where(['and', 'region=:region', 'lolid=:lolid', 'timestamp >= DATE_SUB(NOW(), INTERVAL 2 WEEK)'])
 			->params([':region'=>$this->region, ':lolid'=>$this->lolid])
 			->orderBy('timestamp DESC')
-			->one();
-		if($past_username){
-			return ['changed'=>true, 'old_name'=>$past_username->past_username];
+			->all();
+		if(count($past_username) > 0){
+			$pul = [];
+			foreach($past_username as$pu) $pul[] = $pu->past_username;
+			return ['changed'=>true, 'old_name'=>implode(', ', $pul)];
 		}else return ['changed'=>false, 'old_name'=>''];
 	}
 	
