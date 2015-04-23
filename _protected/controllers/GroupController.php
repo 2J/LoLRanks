@@ -96,8 +96,13 @@ class GroupController extends Controller
 			$addSummoner->group_id = $group->id;
 			
 			if($addSummoner->validate()){
-				$addSummoner->addUsers();
-				//TODO: FLASH SUCCESSFUL USERNAMES
+				$result = $addSummoner->addUsers();
+				if($result['success']){
+					if(count($result['added_names']) == 0) Yii::$app->getSession()->setFlash('error', Yii::t('app', "No summoners were added."));
+					else Yii::$app->getSession()->setFlash('success', Yii::t('app', "Success fully added: ".implode(", ", $result['added_names'])));
+				}else{
+					Yii::$app->getSession()->setFlash('error', Yii::t('app', "No summoners were added."));
+				}
 	            return $this->redirect(['view', 'slug' => $group->slug]);
 			}else{
 				return $this->render('addSummoner', [

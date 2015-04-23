@@ -99,6 +99,7 @@ $(".share-popup").click(function(){
         'dataProvider' => $dataProvider,
 //        'filterModel' => $searchModel,
 		'summary'=>'Showing {begin}-{end} of {totalCount} Summoners',
+		'emptyText'=>$model->isOwner()? 'No Summoners found. '.Html::a('Add Summoners', ['addmember', 'id' => $model->id]):"No Summoners",
 		'options'=>['class'=>'ranking'],
 		'rowOptions'=>function($model, $key, $index, $grid){
 			return ['class'=>Yii::$app->params['tiers_rev'][$model->rank]];

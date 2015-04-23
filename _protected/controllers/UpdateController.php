@@ -33,6 +33,12 @@ class UpdateController extends \yii\web\Controller
 		//get rid of those that have updated in the last two minutes
 		$timestamp = \Yii::$app->db->createCommand('SELECT CURRENT_TIMESTAMP as timestamp')->queryOne()['timestamp'];
 		$summoners = $model->summoners;
+		
+		if(count($summoners) == 0){
+			$model->last_visit = new Expression('NOW()');
+			$model->has_low = true;
+			$model->save();
+		}
 
 		$has_low = false;
 		foreach($summoners as $key=>$summoner){
@@ -41,7 +47,9 @@ class UpdateController extends \yii\web\Controller
 				unset($summoners[$key]);
 			}
 		}
-		if(count($summoners) == 0) return ['msg'=>'This group has updated recently.', 'success'=>false];
+		if(count($summoners) == 0) {
+			return ['msg'=>'This group has updated recently.', 'success'=>false];
+		}
 
 		//sort by region
 		$region_sort = [];

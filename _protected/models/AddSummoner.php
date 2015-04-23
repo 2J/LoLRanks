@@ -56,6 +56,7 @@ class AddSummoner extends Model
 	public function addUsers(){
 		$region_id = Yii::$app->GenericFunctions->getRegionid($this->region);
 		$batches_of_40 = [];
+		$added_names = [];
 		foreach(explode(',',$this->usernames) as $key=>$username){
 			$batches_of_40[intval($key / 40)][] = $username;
 		}
@@ -63,17 +64,17 @@ class AddSummoner extends Model
 		foreach($batches_of_40 as $batch){
 			$summoners = array_merge($summoners, Yii::$app->GenericFunctions->lolapi("summonerByNames", $this->region, $batch));
 		}
-		if(!is_array($summoners) || (count($summoners)==0)) return false; //no summoners
+		if(!is_array($summoners) || (count($summoners)==0)) return ['success'=>false]; //no summoners
 		
 		$update_summoners = [];
-		foreach($summoners as $name=>$summoner){
+		foreach($summoners as $summoner){
 			if(!Summoner::find()->where(['region'=>$region_id, 'lolid'=>$summoner['id']])->one()){
 				$update_summoners[] = $summoner['id'];
 				//make new summoners for these in array
 				$new_summoner = new Summoner();
 				$new_summoner->region = $region_id;
 				$new_summoner->lolid = $summoner['id'];
-				$new_summoner->name = $name;
+				$new_summoner->name = $summoner['name'];
 				$new_summoner->styled_name = $summoner['name'];
 				$new_summoner->level = $summoner['summonerLevel'];
 				$new_summoner->save();
@@ -86,6 +87,7 @@ class AddSummoner extends Model
 				$summ_assignment->region = $region_id;
 				$summ_assignment->summoner_id = $summoner['id'];
 				$summ_assignment->save();
+				$added_names[] = $summoner['name'];
 			}
 		}
 		$unranked = $update_summoners;
@@ -113,6 +115,7 @@ class AddSummoner extends Model
 				}
 			}
 		}
+		
 		//unranked summoners
 		foreach($unranked as $unranked_summoner){
 			$summoner = Summoner::find()->where(['region'=>$region_id, 'lolid'=>$unranked_summoner])->one();
@@ -123,6 +126,6 @@ class AddSummoner extends Model
 			$summoner->losses=0;
 			$summoner->save();
 		}
-		return true;
+		return ['success'=>true, 'added_names'=>$added_names];
 	}
 }
