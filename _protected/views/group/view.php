@@ -45,11 +45,6 @@ $("#update-group-button").not(".btn-loading").on("click", function(){
 		}
     }});
 })
-
-$("#embed_btn").on("click", function(){
-	$(this).hide();
-	$("#embed_instructions").show();
-});
 ', View::POS_READY, 'update');
 
 $this->registerJs('
@@ -168,10 +163,18 @@ $(".share-popup").click(function(){
         <a href="http://www.twitter.com/intent/tweet?url=<?= Url::to(['group/view', 'slug'=>$model->slug],true) ?>&via=LoLRanks&text=<?= $model->name ?> - <?= $model->description ?> " target="_blank" class="share-popup"><div class="inline btn btn-default btn-xs text-center share-btn btn-twitter"><i class="fa fa-twitter"></i></div></a>&nbsp;
         
         </div>
-		<div class="inline btn btn-default btn-xs" id="embed_btn">Embed</div>
+        
+		<div class="inline btn btn-default btn-xs" id="embed_btn" onclick="$(this).hide();$('#share_permalink').show();">Permalink</div>
+        <div class="inline-block" id="share_permalink" style="display:none;">
+        	Permalink: 
+	        <input id="embed_code" type="text" readonly onClick="this.select();" value="<?= Url::to(['group/view','slug'=>$model->slug]) ?>"></input>
+        </div>
+        
+		<div class="inline btn btn-default btn-xs" id="embed_btn" onclick="$(this).hide();$('#embed_instructions').show();">Embed</div>
         <div class="inline-block" id="embed_instructions" style="display:none;">
         	Copy and paste this html code to embed: 
 	        <input id="embed_code" type="text" readonly onClick="this.select();" value="<iframe src=&quot;<?= Url::to(['group/view','slug'=>$model->slug, 'embed'=>true], true) ?>&quot; style=&quot;width:500px;height:400px;border:0;&quot;>Loading Ranking...</iframe>"></input>
         </div>
+        
     </div>
 </div>

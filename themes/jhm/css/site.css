@@ -306,7 +306,7 @@ div.jumbotron a.btn.btn-lg{
 .inline-block{
 	display:inline-block;
 }
-#embed_instructions{
+#embed_instructions, #share_permalink{
 border-radius: 1px 1px 1px 1px;
 -moz-border-radius: 1px 1px 1px 1px;
 -webkit-border-radius: 1px 1px 1px 1px;
