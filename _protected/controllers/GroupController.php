@@ -6,6 +6,7 @@ use Yii;
 use app\models\Group;
 use app\models\AddSummoner;
 use app\models\GroupAssignment;
+use app\models\Favorites;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\web\Controller;
@@ -27,12 +28,12 @@ class GroupController extends Controller
                 'class' => \yii\filters\AccessControl::className(),
 				'rules' => [
                     [
-                        'actions' => ['index', 'view', 'dashboard', 'mygroups', 'create', 'update', 'delete', 'addmember', 'deletesummoner'],
+                        'actions' => ['index', 'view', 'dashboard', 'mygroups', 'create', 'update', 'delete', 'addmember', 'deletesummoner', 'favorite'],
                         'allow' => true,
                         'roles' => ['admin'],
                     ],
                     [
-                        'actions' => ['dashboard', 'create', 'update', 'mygroups', 'delete', 'view', 'addmember', 'deletesummoner'],
+                        'actions' => ['dashboard', 'create', 'update', 'mygroups', 'delete', 'view', 'addmember', 'deletesummoner', 'favorite'],
                         'allow' => true,
                         'roles' => ['member'],
                     ],
@@ -64,7 +65,7 @@ class GroupController extends Controller
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
-			'user_id'=>$userId = Yii::$app->user->identity->id,
+			'user_id'=>$userId = Yii::$app->user->id,
         ]);
     }
 	
@@ -254,6 +255,21 @@ class GroupController extends Controller
             ]);
         }
     }
+	
+	public function actionFavorite($group_id, $unfavorite = false){
+		\Yii::$app->response->format = 'json';
+		if($unfavorite && ($unfavorite != "false")){
+			$favorite = Favorites::find()->where(['group_id'=>$group_id, 'user_id'=>Yii::$app->user->id])->one();
+			if($favorite) $favorite->delete();
+			return false;
+		}else{
+			if(Favorites::find()->where(['group_id'=>$group_id, 'user_id'=>Yii::$app->user->id])->one()) return true;
+			$favorite = new Favorites();
+			$favorite->group_id = $group_id;
+			$favorite->user_id = Yii::$app->user->id;
+			return $favorite->save();
+		}
+	}
 
     /**
      * Deletes an existing Group model.

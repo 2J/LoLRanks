@@ -13,6 +13,7 @@ use Yii;
  * @property Role[] $role
  * @property Article[] $articles
  * @property Group[] $groups
+ * @property Favorites[] $favorites
  */
 class User extends UserIdentity
 {
@@ -128,16 +129,20 @@ class User extends UserIdentity
 	{
 		return $this->hasMany(Group::className(), ['user_id' => 'id']);
 	}
+	public function getFavorites()
+	{
+		return $this->hasMany(Group::className(), ['id' => 'group_id'])->viaTable('favorites', ['user_id' => 'id']); 
+	}
 
     /**
      * Relation with Article model.
      * 
      * @return \yii\db\ActiveQuery
      */
-    public function getArticles()
+    /*public function getArticles()
     {
         return $this->hasMany(Article::className(), ['user_id' => 'id']);
-    }
+    }*/
 
 //------------------------------------------------------------------------------------------------//
 // USER FINDERS

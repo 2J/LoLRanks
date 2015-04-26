@@ -20,6 +20,7 @@ use himiklab\sitemap\behaviors\SitemapBehavior;
  *
  * @property User $user
  * @property GroupAssignment[] $groupAssignments
+ * @property Favorites[] $favorites
  */
 class Group extends \yii\db\ActiveRecord
 {
@@ -86,6 +87,28 @@ class Group extends \yii\db\ActiveRecord
         return $this->hasMany(Summoner::className(), ['lolid' => 'summoner_id'])
 			->viaTable('group_assignment', ['group_id' => 'id']);
 	}
+	
+	/** 
+    * @return \yii\db\ActiveQuery 
+    */ 
+   /*public function getFavorites() 
+   { 
+       return $this->hasMany(Favorites::className(), ['group_id' => 'id']); 
+   } */
+ 
+	public function getFavorited() 
+   { 
+       if(Favorites::find()->where(['group_id'=>$this->id, 'user_id'=>Yii::$app->user->id])->one()) return true;
+	   else return false;
+   } 
+ 
+   /** 
+    * @return \yii\db\ActiveQuery 
+    */ 
+   public function getFavoritedUsers() 
+   { 
+       return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('favorites', ['group_id' => 'id']); 
+   }
 	
 	public function randomSlug($name=''){
 		if(empty($name)) $name = (empty($this->name)? 'ranks' : $this->name);

@@ -344,3 +344,12 @@ div.updated-ago{
 	margin-top:10px;
 	margin-bottom:10px;
 }
+.favorite-button{
+	color:#FFAC33 !important;
+}
+.favorite-button.favorited > .fav-off{
+	display:none;
+}
+.favorite-button.not_favorited > .fav-on{
+	display:none;
+}

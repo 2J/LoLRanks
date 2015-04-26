@@ -51,6 +51,20 @@ $("#update-group-button").not(".btn-loading").on("click", function(){
 ', View::POS_READY, 'update');
 
 $this->registerJs('
+$("#favorite-button").on("click", function(){
+	if($("#favorite-button").hasClass("loading")) return false;
+	unfavorite = $("#favorite-button").hasClass("favorited");
+    $.ajax({url: "' .Url::to(['group/favorite', 'group_id'=>$group_id]). '&unfavorite="+unfavorite, dataType: "json", success: function(result){
+		if(result){
+			$("#favorite-button").removeClass("not_favorited").addClass("favorited");
+		}else{
+			$("#favorite-button").removeClass("favorited").addClass("not_favorited");
+		}
+    }});
+})
+', View::POS_READY, 'favorite');
+
+$this->registerJs('
 $(".share-popup").click(function(){
     var window_size = "";
     var url = this.href;
@@ -80,6 +94,14 @@ $(".share-popup").click(function(){
     <h3 class="text-center"><?= $model->description ?></h3>
 	<div class="text-center">
 	    <div class="inline updated-ago">&nbsp;Updated <?= $updated_ago ?> ago&nbsp;</div><br />
+        
+    	<?php if(!Yii::$app->user->isGuest){ ?>
+            <div id="favorite-button" class="btn btn-primary btn-sm favorite-button <?= ($model->favorited)? "favorited":"not_favorited" ?>">
+                <div class="fav-on"><i class="fa fa-star"></i></div>
+                <div class="fav-off"><i class="fa fa-star-o"></i></div>
+            </div>
+        <?php } ?>
+        
 		<div id="update-group-button" class="btn btn-default btn-sm" title="Updated <?= $updated_ago ?> ago">
         	<div class="hidden-loading">Update Group</div>
         	<div class="hidden-default">Updating &nbsp; <i class="fa fa-refresh fa-spin"></i></div>
