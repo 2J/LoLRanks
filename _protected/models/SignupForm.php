@@ -30,6 +30,7 @@ class SignupForm extends Model
             ['username', 'string', 'min' => 2, 'max' => 255],
             ['username', 'unique', 'targetClass' => '\app\models\User', 
                 'message' => 'This username has already been taken.'],
+			['username', 'match', 'pattern' => '/^[A-Za-z0-9_-]+$/u', 'message'=>'Username can only contain alphanumeric characters, dashes, and hyphens'],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],

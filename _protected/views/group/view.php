@@ -23,10 +23,11 @@ if($update_group){
 	$this->registerJs('
 	$(this).removeClass( "btn-default" ).addClass( "btn-loading" );
 		$.ajax({url: "' .Url::to(['update/group', 'group_id'=>$group_id]). '", dataType: "json", success: function(result){
-			$(this).removeClass( "btn-loading" ).addClass( "btn-default" );
 			if(result.success){
-				alert(result.msg)
-				location.reload();
+				$("#update-group-button").html(result.msg);
+				$.pjax.reload({container:"#rankingtable"});
+			}else{
+				$("#update-group-button").removeClass( "btn-loading" ).addClass( "btn-default" );
 			}
 		}});
 	', View::POS_READY, 'updateNoclick');
@@ -37,11 +38,12 @@ $("#update-group-button").not(".btn-loading").on("click", function(){
 	if($("#update-group-button").hasClass("btn-loading")) return false;
 	$("#update-group-button").removeClass( "btn-default" ).addClass( "btn-loading" );
     $.ajax({url: "' .Url::to(['update/group', 'group_id'=>$group_id]). '", dataType: "json", success: function(result){
-		$("#update-group-button").prop( "title" , "Updated Now" );
-		$("#update-group-button").removeClass( "btn-loading" ).addClass( "btn-default" );
-        alert(result.msg);
 		if(result.success){
-			location.reload();
+			$("#update-group-button").html(result.msg);
+			$.pjax.reload({container:"#rankingtable"});
+		}else{
+			alert(result.msg);
+			$("#update-group-button").removeClass( "btn-loading" ).addClass( "btn-default" );
 		}
     }});
 })
@@ -89,9 +91,10 @@ $(".share-popup").click(function(){
         </div>
         <br />
     <?php } ?>
-
+	<?php \yii\widgets\Pjax::begin(); ?>
 	<?= GridView::widget([
         'dataProvider' => $dataProvider,
+		'id'=>'rankingtable',
 //        'filterModel' => $searchModel,
 		'summary'=>'Showing {begin}-{end} of {totalCount} Summoners',
 		'emptyText'=>$model->isOwner()? 'No Summoners found. '.Html::a('Add Summoners', ['addmember', 'id' => $model->id]):"No Summoners",
@@ -150,7 +153,7 @@ $(".share-popup").click(function(){
 			],
         ],
     ]); ?>
-
+	<?php \yii\widgets\Pjax::end(); ?>
 </div>
 
 <div class="row">
