@@ -31,10 +31,10 @@ $this->title = Yii::t('app', 'About');
 <li>Track username changes once people are added to a group</li>
 <li>Automatic group updates + manual update button</li>
 <li>Favorite groups</li>
+<li>Show usernames that were successfully added</li>
 </ul>
 <h1 id="features-in-development">Features in development</h1>
 <ul>
-<li>Show usernames that were successfully added</li>
 <li>Export ranking as markdown (for use in websites such as Reddit)</li>
 <li>Option to track queues other than solo queue</li>
 <li>Add editors that can also edit your ranking</li>
