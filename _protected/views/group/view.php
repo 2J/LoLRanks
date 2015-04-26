@@ -27,7 +27,8 @@ if($update_group){
 				$("#update-group-button").html(result.msg);
 				$.pjax.reload({container:"#rankingtable"});
 			}else{
-				$("#update-group-button").removeClass( "btn-loading" ).addClass( "btn-default" );
+				$("#update-group-button").html(result.msg);
+				$.pjax.reload({container:"#rankingtable"});
 			}
 		}});
 	', View::POS_READY, 'updateNoclick');
@@ -42,8 +43,8 @@ $("#update-group-button").not(".btn-loading").on("click", function(){
 			$("#update-group-button").html(result.msg);
 			$.pjax.reload({container:"#rankingtable"});
 		}else{
-			alert(result.msg);
-			$("#update-group-button").removeClass( "btn-loading" ).addClass( "btn-default" );
+			$("#update-group-button").html(result.msg);
+			$.pjax.reload({container:"#rankingtable"});
 		}
     }});
 })
@@ -91,6 +92,20 @@ $(".share-popup").click(function(){
         </div>
         <br />
     <?php } ?>
+    
+    <?php if(!$model->isOwner()){ ?>
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- lolranks_responsive -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-4614603456200884"
+             data-ad-slot="8005620256"
+             data-ad-format="auto"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    <?php } ?>
+    
 	<?php \yii\widgets\Pjax::begin(); ?>
 	<?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -181,3 +196,19 @@ $(".share-popup").click(function(){
         
     </div>
 </div>
+
+
+<?php if(!$model->isOwner()){ ?>
+    <div class="row">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- lolranks_responsive -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-4614603456200884"
+             data-ad-slot="8005620256"
+             data-ad-format="auto"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+<?php } ?>
