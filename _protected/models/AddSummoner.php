@@ -62,7 +62,8 @@ class AddSummoner extends Model
 		}
 		$summoners = [];
 		foreach($batches_of_40 as $batch){
-			$summoners = array_merge($summoners, Yii::$app->GenericFunctions->lolapi("summonerByNames", $this->region, $batch));
+			$data = Yii::$app->GenericFunctions->lolapi("summonerByNames", $this->region, $batch);
+			if(is_array($data)) $summoners = array_merge($summoners, $data);
 		}
 		if(!is_array($summoners) || (count($summoners)==0)) return ['success'=>false]; //no summoners
 		
