@@ -65,11 +65,14 @@ $config = [
 				'login'=>'site/login',
 				'resetpassword'=>'site/request-password-reset',
 				'account'=>'site/account',
+				['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
+				'terms'=>'site/terms',
+				'privacy'=>'site/privacy',
 			]
         ],
         'user' => [
             'identityClass' => 'app\models\UserIdentity',
-            'enableAutoLogin' => false,
+            'enableAutoLogin' => true,
         ],
         'session' => [
             'class' => 'yii\web\Session',
@@ -92,7 +95,7 @@ $config = [
 				'host' => 'REDACTED',
 				'username' => 'REDACTED',
 				'password' => 'REDACTED',
-				'port' => 'REDACTED',
+				'port' => '26',
 				//'encryption' => 'tls',
 			],
         ],
@@ -122,6 +125,45 @@ $config = [
         'db' => require(__DIR__ . '/db.php'),
     ],
     'params' => $params,
+	'modules' => [
+		'sitemap' => [
+			'class' => 'himiklab\sitemap\Sitemap',
+			'models' => [
+				// your models
+				'app\models\Group',
+			],
+			'urls'=> [
+				// your additional urls
+				[
+					'loc' => '/',
+					'changefreq' => \himiklab\sitemap\behaviors\SitemapBehavior::CHANGEFREQ_MONTHLY,
+					'priority' => 1.0,
+				],
+				[
+					'loc' => '/about',
+					'changefreq' => \himiklab\sitemap\behaviors\SitemapBehavior::CHANGEFREQ_MONTHLY,
+					'priority' => 0.8,
+				],
+				[
+					'loc' => '/contact',
+					'changefreq' => \himiklab\sitemap\behaviors\SitemapBehavior::CHANGEFREQ_MONTHLY,
+					'priority' => 0.5,
+				],
+				[
+					'loc' => '/signup',
+					'changefreq' => \himiklab\sitemap\behaviors\SitemapBehavior::CHANGEFREQ_MONTHLY,
+					'priority' => 0.6,
+				],
+				[
+					'loc' => '/login',
+					'changefreq' => \himiklab\sitemap\behaviors\SitemapBehavior::CHANGEFREQ_MONTHLY,
+					'priority' => 0.8,
+				],
+			],
+			'enableGzip' => true, // default is false
+			'cacheExpire' => 86400, // 1 second. Default is 24 hours
+		],
+	],
 ];
 
 if (YII_ENV_DEV) {
