@@ -92,7 +92,7 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-        <p class="pull-left">&copy; Koggiri <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Koggiri <?= date('Y') ?> ᐧ <a href="http://lolranks.j2.io/terms">Terms of Service</a> ᐧ <a href="http://lolranks.j2.io/privacy">Privacy Policy</a></p>
         <p class="pull-right">
 	        <a href="http://j2.io" title="Website"><i class="fa fa-globe"></i></a>&nbsp;
         	<a href="http://www.facebook.com/JHM.JJ" title="Facebook"><i class="fa fa-facebook"></i></a>&nbsp;
