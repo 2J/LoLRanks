@@ -41,28 +41,34 @@ $group_id = $model->id;
 
 if($update_group){
 	$this->registerJs('
-	$(this).removeClass( "btn-default" ).addClass( "btn-loading" );
+	$("#update-group-button").removeClass( "btn-default" ).addClass( "btn-loading" );
 		$.ajax({url: "' .Url::to(['update/group', 'group_id'=>$group_id]). '", dataType: "json", success: function(result){
-			$(this).removeClass( "btn-loading" ).addClass( "btn-default" );
+			if(result.success){
+				$("#update-group-button").html(result.msg);
+				$.pjax.reload({container:"#rankingtable"});
+			}else{
+				$("#update-group-button").html(result.msg);
+				$.pjax.reload({container:"#rankingtable"});
+			}
 		}});
 	', View::POS_READY, 'updateNoclick');
 };
 
-$this->registerJs('
+/*$this->registerJs('
 $("#update-group-button").not(".btn-loading").on("click", function(){
 	if($("#update-group-button").hasClass("btn-loading")) return false;
 	$("#update-group-button").removeClass( "btn-default" ).addClass( "btn-loading" );
     $.ajax({url: "' .Url::to(['update/group', 'group_id'=>$group_id]). '", dataType: "json", success: function(result){
-		$("#update-group-button").prop( "title" , "Updated Now" );
-		$("#update-group-button").removeClass( "btn-loading" ).addClass( "btn-default" );
-        alert(result.msg);
 		if(result.success){
-			location.reload();
+			$("#update-group-button").html(result.msg);
+			$.pjax.reload({container:"#rankingtable"});
+		}else{
+			$("#update-group-button").html(result.msg);
+			$.pjax.reload({container:"#rankingtable"});
 		}
     }});
 })
-', View::POS_READY, 'update');
-?>
+', View::POS_READY, 'update');*/
 
 <div class="group-view">
     <h1 class="text-center">

@@ -21,7 +21,7 @@ $group_id = $model->id;
 
 if($update_group){
 	$this->registerJs('
-	$(this).removeClass( "btn-default" ).addClass( "btn-loading" );
+	$("#update-group-button").removeClass( "btn-default" ).addClass( "btn-loading" );
 		$.ajax({url: "' .Url::to(['update/group', 'group_id'=>$group_id]). '", dataType: "json", success: function(result){
 			if(result.success){
 				$("#update-group-button").html(result.msg);
