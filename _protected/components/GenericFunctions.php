@@ -7,6 +7,7 @@ use yii\base\InvalidConfigException;
 use linslin\yii2\curl;
 
 use app\models\RegionIndex;
+use app\models\GroupViews;
  
 //The name is a lie. These functions are not so generic
 class GenericFunctions extends Component
@@ -68,5 +69,37 @@ class GenericFunctions extends Component
 
     $print = ($count == 1) ? '1 '.$name : "$count {$name}s";
     return $print;
+  }
+  
+  public function ip(){
+	  return getenv('HTTP_CLIENT_IP')?:
+		getenv('HTTP_X_FORWARDED_FOR')?:
+		getenv('HTTP_X_FORWARDED')?:
+		getenv('HTTP_FORWARDED_FOR')?:
+		getenv('HTTP_FORWARDED')?:
+		getenv('REMOTE_ADDR')?:
+		'UNKNOWN';
+  }
+  
+  public function audit($type,$details){
+	  if($type == 'group_view'){
+		$ip = $this->ip();
+		//only log once per hour
+		$recent_audit = GroupViews::find()
+			->distinct(true)
+			->where(['and', 'group_id=:group_id', 'ip=:ip', 'timestamp >= DATE_SUB(NOW(), INTERVAL 1 HOUR)'])
+			->params([':group_id'=>$details['group_id'], ':ip'=>$ip])
+			->orderBy('timestamp DESC')
+			->all();
+		if(count($recent_audit) == 0){
+			$audit = new GroupViews();
+			$audit->group_id = $details['group_id'];
+			$audit->user_id = $details['user_id'];
+			
+			$audit->ip = $ip;
+				
+			return $audit->save();
+		}
+	  }
   }
 }

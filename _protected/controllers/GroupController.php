@@ -130,6 +130,11 @@ class GroupController extends Controller
             throw new NotFoundHttpException('The requested page does not exist');
         }
 		
+		//audit
+		Yii::$app->GenericFunctions->audit('group_view',
+			['group_id'=>$model->id, 
+			 'user_id'=>(!Yii::$app->user->isGuest)? Yii::$app->user->identity->id : NULL]);
+		
 		$timestamp = \Yii::$app->db->createCommand('SELECT CURRENT_TIMESTAMP as timestamp')->queryOne()['timestamp'];
 		$update_group = false;
 		if(($time_since = (strtotime($timestamp) - strtotime($model->last_visit))) > 86400){
