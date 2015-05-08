@@ -82,6 +82,7 @@ class GenericFunctions extends Component
   }
   
   public function audit($type,$details){
+    return true;
 	  if($type == 'group_view'){
 		$ip = $this->ip();
 		//only log once per hour

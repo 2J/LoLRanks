@@ -353,3 +353,6 @@ div.updated-ago{
 .favorite-button.not_favorited > .fav-on{
 	display:none;
 }
+.alert-danger.alert a{
+	color:white;
+}

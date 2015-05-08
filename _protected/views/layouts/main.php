@@ -32,7 +32,7 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => Yii::t('app', Yii::$app->name) . " <small><small>(Beta)</small></small>",
+                'brandLabel' => Yii::t('app', Yii::$app->name),
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-default navbar-fixed-top',
